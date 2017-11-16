@@ -1,20 +1,50 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { ListGroup, ListGroupItem, FormGroup, FormControl, Label } from 'react-bootstrap';
 import * as tipos from './constantes';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  cambioInputNuevaTarea(event){
+    if(event.which === 13){
+      this.props.crear( (new Date()).getTime(), event.target.value, false );
+      event.target.value = "";
+    }
+  }
   render() {
+
+    const aTareas =this.props.tareas;
+                    
+    const ListGroupItems = aTareas.map(
+      (item,index) => 
+      <ListGroupItem key={index} bsClass="list-group-item text-left">
+          <FormGroup bsClass="text-left">
+            <Label>{item.texto}</Label>
+          </FormGroup>
+      </ListGroupItem>
+    );
+
+    const lista = (
+      <ListGroup>
+        {ListGroupItems}
+      </ListGroup>
+    );
+    
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Lista de tareas con React & Redux</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <FormControl
+          onKeyUp={(eventKey)=>this.cambioInputNuevaTarea(eventKey)}
+          id="tarea"
+          type="text"
+          label="Text"
+          placeholder="Introduce un texto y pulsa Enter"
+        />
+        {lista}
       </div>
     );
   }
