@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import * as tipos from './constantes';
 import logo from './logo.svg';
 import './App.css';
 
@@ -18,4 +20,20 @@ class App extends Component {
   }
 }
 
-export default App;
+//Función que inyectará el atributo tareas en props con el contenido de tareas del estado principal. 
+//Establecido antes mediante Provider encapsulando el compo App en index.js.
+const mapStateToProps = (estado) => {
+  return {
+    tareas: estado.tareas
+  }
+}
+
+//Objeto que mapeará funciones que harán la funcionalidad de store.dispatch( el_objeto_que_devuelva_cada_funcion_mapeada )
+const mapDispatchToProps = {
+    crear: (id,texto, hecho) => { return { type:tipos.ADD, id , texto, hecho } },
+    cambiar: (id)=>{ return { type:tipos.CHANGE, id };},
+    borrar: (id)=>{ return { type:tipos.DEL, id }; }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
+
