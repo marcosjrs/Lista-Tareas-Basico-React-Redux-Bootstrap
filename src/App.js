@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { ListGroup, ListGroupItem, FormGroup, FormControl, Label } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, FormGroup, FormControl, Label, Checkbox } from 'react-bootstrap';
 import * as tipos from './constantes';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
   cambioInputNuevaTarea(event){
     if(event.which === 13){
       this.props.crear( (new Date()).getTime(), event.target.value, false );
       event.target.value = "";
     }
   }
+
+  cambiarHecho(event){
+    this.props.cambiar(event.currentTarget.id.split("cambiar_").join(""));
+  }
+
   render() {
 
     const aTareas =this.props.tareas;
@@ -20,7 +26,7 @@ class App extends Component {
       (item,index) => 
       <ListGroupItem key={index} bsClass="list-group-item text-left">
           <FormGroup bsClass="text-left">
-            <Label>{item.texto}</Label>
+          <Checkbox id={'cambiar_'+item.id} onChange={(event)=>this.cambiarHecho(event)} inline ><Label bsClass={item.hecho?'strike':''} >{item.texto}</Label></Checkbox>
           </FormGroup>
       </ListGroupItem>
     );
