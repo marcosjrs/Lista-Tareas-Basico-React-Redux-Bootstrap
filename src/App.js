@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { ListGroup, ListGroupItem, FormGroup, FormControl, Label, Checkbox } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, FormGroup, FormControl, Label, Checkbox,Button, Glyphicon } from 'react-bootstrap';
 import * as tipos from './constantes';
 import logo from './logo.svg';
 import './App.css';
@@ -18,6 +18,10 @@ class App extends Component {
     this.props.cambiar(event.currentTarget.id.split("cambiar_").join(""));
   }
 
+  borrar(event){
+    this.props.borrar(event.currentTarget.id.split("borrar_").join(""));
+  }
+
   render() {
 
     const aTareas =this.props.tareas;
@@ -27,6 +31,7 @@ class App extends Component {
       <ListGroupItem key={index} bsClass="list-group-item text-left">
           <FormGroup bsClass="text-left">
           <Checkbox id={'cambiar_'+item.id} onChange={(event)=>this.cambiarHecho(event)} inline ><Label bsClass={item.hecho?'strike':''} >{item.texto}</Label></Checkbox>
+          <Button id={"borrar_"+item.id} className="pull-right" bsStyle="danger" bsSize="xsmall" onClick={(event) => {this.borrar(event)}}><Glyphicon glyph="trash" /></Button>
           </FormGroup>
       </ListGroupItem>
     );
