@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { ListGroup, ListGroupItem, FormGroup, FormControl, Label, Checkbox,Button, Glyphicon } from 'react-bootstrap';
-import * as tipos from './constantes';
 import * as acciones from './acciones';
 import logo from './logo.svg';
 import './App.css';
