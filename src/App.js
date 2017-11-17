@@ -4,7 +4,6 @@ import { ListGroup, ListGroupItem, FormGroup, FormControl, Label, Checkbox,Butto
 import {crear, cambiar, borrar} from './acciones';
 import logo from './logo.svg';
 import './App.css';
-import * as tipos from './constantes';
 
 class App extends Component {
 
