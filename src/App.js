@@ -73,13 +73,20 @@ const mapStateToProps = (estado) => {
 export const mapDispatchToProps = (dispatch) => {
   return {
       crear: (id, texto, hecho) => {
-          dispatch(crear(id, texto, hecho)) //crear es la importada de acciones.js...
+             // dispatch(crear(id, texto, hecho)) // <--Antes ( Envolvía una funcion, de acciones.js, que devuelve un objeto, de forma sincronica )
+          dispatch(
+            //Ahora: Envuelve una funcion (a la que llamará redux-thunk, que es un middleware entre accion y reductor)
+            // y esta funcion devuelve a su vez lo que devolvía antes pero de forma asincrónica... como si por ej. se llamara a un servicio primero...
+            (dispatch)=>{
+              setTimeout( ()=>{ dispatch(crear(id, texto, hecho))  }, 1000 );
+            }
+          );
       },
       cambiar: (id) => {
-        dispatch(cambiar(id))
+        setTimeout(()=>{ dispatch(cambiar(id)) },1000); //Otra forma de hacer asincrona.. pero aqui no actua el redux-thunk de la misma forma porque se retarda el dispatch, no desde dentro del dispatch. 
       },
       borrar: (id) => {
-        dispatch(borrar(id))
+        dispatch(borrar(id)); //sin ser asincrono
       }
   };
 };
