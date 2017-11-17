@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { ListGroup, ListGroupItem, FormGroup, FormControl, Label, Checkbox,Button, Glyphicon } from 'react-bootstrap';
 import * as tipos from './constantes';
+import * as acciones from './acciones';
 import logo from './logo.svg';
 import './App.css';
 
@@ -71,9 +72,9 @@ const mapStateToProps = (estado) => {
 
 //Objeto que mapeará funciones que harán la funcionalidad de store.dispatch( el_objeto_que_devuelva_cada_funcion_mapeada )
 const mapDispatchToProps = {
-    crear: (id,texto, hecho) => { return { type:tipos.ADD, id , texto, hecho } },
-    cambiar: (id)=>{ return { type:tipos.CHANGE, id };},
-    borrar: (id)=>{ return { type:tipos.DEL, id }; }
+    crear: acciones.crear,
+    cambiar: acciones.cambiar,
+    borrar: acciones.borrar
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
